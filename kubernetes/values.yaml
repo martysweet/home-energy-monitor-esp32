@@ -1,1 +1,2 @@
 hemEndpoint: 192.168.1.123 # Override at deploy time
+namespace: hem
