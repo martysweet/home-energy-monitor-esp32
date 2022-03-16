@@ -1,2 +1,4 @@
 hemEndpoint: 192.168.1.123 # Override at deploy time
 namespace: hem
+waterMonitorImage: lhr.ocir.io/lrapvn2kw2t6/hem/water-monitor:1.0
+waterModbusHost: 192.168.1.123

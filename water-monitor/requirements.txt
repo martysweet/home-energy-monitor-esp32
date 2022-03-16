@@ -1,2 +1,2 @@
-flask
+pyModbusTCP
 prometheus_client

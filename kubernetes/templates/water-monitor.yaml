@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: water-monitor
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: water-monitor
+  template:
+    metadata:
+      labels:
+        app: water-monitor
+    spec:
+      containers:
+        - name: poller
+          image: {{ .Values.waterMonitorImage }}
+          ports:
+          - name: web
+            containerPort: 7080
+            protocol: TCP
+          env:
+            - name: MODBUS_HOST
+              value: {{ .Values.waterModbusHost }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: water-monitor
+  namespace: {{ .Values.namespace }}
+spec:
+  type: ClusterIP
+  selector:
+    app: water-monitor
+  ports:
+    - name: web
+      port: 7080
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: water-monitor
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: water-monitor
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: water-monitor
+      release: prometheus
+  endpoints:
+    - port: web
+      interval: 30s
+      honorLabels: true
