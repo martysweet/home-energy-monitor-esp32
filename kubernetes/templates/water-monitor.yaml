@@ -13,6 +13,8 @@ spec:
       labels:
         app: water-monitor
     spec:
+      imagePullSecrets:
+        - name: ocirsecret
       containers:
         - name: poller
           image: {{ .Values.waterMonitorImage }}
