@@ -1,0 +1,69 @@
+# TODO: This could be templated to remove duplication with water-monitor
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neohub-monitor
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: neohub-monitor
+  template:
+    metadata:
+      labels:
+        app: neohub-monitor
+    spec:
+      imagePullSecrets:
+        - name: ocirsecret
+      containers:
+        - name: poller
+          image: {{ .Values.neohubMonitorImage }}
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+          ports:
+          - name: web
+            containerPort: 7080
+            protocol: TCP
+          env:
+            - name: NEOHUB_HOST
+              value: {{ .Values.neohubHost }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: neohub-monitor
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: neohub-monitor
+    release: prometheus
+spec:
+  type: ClusterIP
+  selector:
+    app: neohub-monitor
+  ports:
+    - name: web
+      port: 7080
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: neohub-monitor
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: neohub-monitor
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: neohub-monitor
+      release: prometheus
+  endpoints:
+    - targetPort: 7080
+      interval: 30s
+      honorLabels: true

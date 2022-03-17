@@ -1,7 +1,8 @@
 import os
 import time
-import json
 from neohub import NeoHub
+from prometheus_client import start_http_server, Gauge
+
 
 # Get Environmental Variables
 try:
@@ -11,27 +12,29 @@ except Exception as e:
     print("Failed parsing environmental variables: {}".format(e))
     raise
 
+temperature = Gauge('temperature', 'Temperature of zone', ['zone'])
+is_active = Gauge('is_active', 'Zone is active', ['zone'])
+
 def fetch_and_transmit():
-    n = NeoHub(neohub_host)
+    while True:
+        n = NeoHub(neohub_host)
 
-    # Get the device | active | temp information
-    data = n.get_info()
-    for zone_name in data:
-        values = data.get(zone_name, None)
-        if values is not None:
-
-            print(zone_name)
-            # zone_name
-            # heat_demand{}
-            # values['active']
-
-            # tempreature{}
-            # float(values['current_temperature'])
+        # Get the device | active | temp information
+        data = n.get_info()
+        for zone_name in data:
+            values = data.get(zone_name, None)
+            if values is not None:
+                print("Zone - {} - {} - {}".format(zone_name, values['active'], float(values['current_temperature'])))
+                temperature.labels(zone=zone_name).set(float(values['current_temperature']))
+                is_active.labels(zone=zone_name).set(values['active'])
+        n.close()
+        time.sleep(poll_delay)
 
 
-    n.close()
-
-# Loop, let Greengrass handle any errors
-while True:
+if __name__ == '__main__':
+    print("Startup")
+    # Start up the server to expose the metrics.
+    start_http_server(7080)
+    # Read the values
     fetch_and_transmit()
-    time.sleep(poll_delay)
+

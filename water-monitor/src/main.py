@@ -12,7 +12,7 @@ except Exception as e:
 
 
 water_litres = Gauge('litres', 'Litres of water consumed', ['source'])
-modbus_status = Gauge('isConnected', 'Last iteration was success')
+modbus_status = Gauge('is_connected', 'Last iteration was success')
 
 def read_values():
     print("Attempting connection to {}".format(host))

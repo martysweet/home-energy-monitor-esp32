@@ -1,4 +1,6 @@
 hemEndpoint: 192.168.1.123 # Override at deploy time
 namespace: hem
 waterMonitorImage: lhr.ocir.io/lrapvn2kw2t6/hem/water-monitor:latest
+neohubMonitorImage: lhr.ocir.io/lrapvn2kw2t6/hem/neohub-monitor:latest
 waterModbusHost: 192.168.1.123
+neohubHost: 192.168.1.123
