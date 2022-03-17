@@ -56,6 +56,6 @@ spec:
       app: water-monitor
       release: prometheus
   endpoints:
-    - port: web
+    - targetPort: 7080
       interval: 30s
       honorLabels: true
