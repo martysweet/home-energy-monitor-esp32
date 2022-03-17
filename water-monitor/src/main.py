@@ -12,23 +12,31 @@ except Exception as e:
 
 
 water_litres = Gauge('litres', 'Litres of water consumed', ['source'])
-
+modbus_status = Gauge('isConnected', 'Last iteration was success')
 
 def read_values():
+    print("Attempting connection to {}".format(host))
     c = ModbusClient(host=host, auto_open=True, auto_close=True)
 
     while True:
-        new_value = int(c.read_holding_registers(43, 1)[0])
-        print("New Value: {}".format(new_value))
+        print("Attempting read")
+        val = c.read_holding_registers(43, 1)
+        if val is not None:
+            new_value = int(val[0])
+            print("New Value: {}".format(new_value))
 
-        # Use rate() to handle rollovers
-        litres = new_value * k
-        water_litres.labels(source='mains').set(litres)
-
+            # Use rate() to handle rollovers
+            litres = new_value * k
+            water_litres.labels(source='mains').set(litres)
+            modbus_status.set(1)
+        else:
+            print("Failed to connect")
+            modbus_status.set(0)
         time.sleep(poll_delay)
 
 
 if __name__ == '__main__':
+    print("Startup")
     # Start up the server to expose the metrics.
     start_http_server(7080)
     # Read the values
