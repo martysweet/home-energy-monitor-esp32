@@ -19,6 +19,10 @@ spec:
         - name: poller
           image: {{ .Values.waterMonitorImage }}
           imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
           ports:
           - name: web
             containerPort: 7080
