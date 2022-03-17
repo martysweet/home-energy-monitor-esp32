@@ -33,6 +33,9 @@ kind: Service
 metadata:
   name: water-monitor
   namespace: {{ .Values.namespace }}
+  labels:
+    app: water-monitor
+    release: prometheus
 spec:
   type: ClusterIP
   selector:
