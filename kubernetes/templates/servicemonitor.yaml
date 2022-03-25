@@ -48,3 +48,8 @@ spec:
     - port: web
       interval: 30s
       honorLabels: true
+      metricRelabelings:
+      - sourceLabels: 'sensorId'
+        targetLabel: 'sensorName'
+        regex: "284186e45e1414a"
+        replacement: 'UFH Return'

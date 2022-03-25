@@ -2,11 +2,12 @@ import os
 import time
 from neohub import NeoHub
 from prometheus_client import start_http_server, Gauge
+from datetime import datetime
 
 
 # Get Environmental Variables
 try:
-    poll_delay = int(os.getenv("POLL_DELAY", 10))
+    poll_delay = int(os.getenv("POLL_DELAY", 15))
     neohub_host = os.getenv("NEOHUB_HOST", "")
 except Exception as e:
     print("Failed parsing environmental variables: {}".format(e))
@@ -21,6 +22,8 @@ def fetch_and_transmit():
 
         # Get the device | active | temp information
         data = n.get_info()
+        my_date = datetime.now()
+        print(my_date.isoformat())
         for zone_name in data:
             values = data.get(zone_name, None)
             if values is not None:
