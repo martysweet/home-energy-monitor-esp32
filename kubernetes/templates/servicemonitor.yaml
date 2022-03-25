@@ -62,51 +62,51 @@ spec:
         targetLabel: 'sensorName'
         regex: "28aa2cc31a132c0"
         replacement: 'ASHP Flow'
-{{/*      - sourceLabels:*/}}
-{{/*        - 'sensorId'*/}}
-{{/*        targetLabel: 'sensorName'*/}}
-{{/*        regex: "28d06fee5e141fe"*/}}
-{{/*        replacement: 'ASHP Flow to Water'*/}}
-{{/*      - sourceLabels:*/}}
-{{/*        - 'sensorId'*/}}
-{{/*        targetLabel: 'sensorName'*/}}
-{{/*        regex: "28aa6c575814134"*/}}
-{{/*        replacement: 'ASHP Flow to UFH'*/}}
-{{/*      # UFH Flow/Return*/}}
-{{/*      - sourceLabels:*/}}
-{{/*        - 'sensorId'*/}}
-{{/*        targetLabel: 'sensorName'*/}}
-{{/*        regex: "284186e45e1414a"*/}}
-{{/*        replacement: 'UFH Return'*/}}
-{{/*      - sourceLabels:*/}}
-{{/*        - 'sensorId'*/}}
-{{/*        targetLabel: 'sensorName'*/}}
-{{/*        regex: "28b68aed5e141f"*/}}
-{{/*        replacement: 'UFH Flow'*/}}
+      - sourceLabels:
+        - 'sensorId'
+        targetLabel: 'sensorName'
+        regex: "28d06fee5e141fe"
+        replacement: 'ASHP Flow to Water'
+      - sourceLabels:
+        - 'sensorId'
+        targetLabel: 'sensorName'
+        regex: "28aa6c575814134"
+        replacement: 'ASHP Flow to UFH'
+      # UFH Flow/Return
+      - sourceLabels:
+        - 'sensorId'
+        targetLabel: 'sensorName'
+        regex: "284186e45e1414a"
+        replacement: 'UFH Return'
+      - sourceLabels:
+        - 'sensorId'
+        targetLabel: 'sensorName'
+        regex: "28b68aed5e141f"
+        replacement: 'UFH Flow'
 {{/*      - sourceLabels:                   # Temp: Bug fix for Ardiuno code*/}}
 {{/*        - 'sensorId'*/}}
 {{/*        regex: "28b68aed5e141f"*/}}
 {{/*        replacement: '28b68aed5e141f0'*/}}
-{{/*        # UFH Heat Store*/}}
-{{/*      - sourceLabels:*/}}
-{{/*        - 'sensorId'*/}}
-{{/*        targetLabel: 'sensorName'*/}}
-{{/*        regex: "28aabdb81a13286"*/}}
-{{/*        replacement: 'UFH Store'*/}}
-{{/*      # Water Heat Store*/}}
-{{/*      - sourceLabels:*/}}
-{{/*        - 'sensorId'*/}}
-{{/*        targetLabel: 'sensorName'*/}}
-{{/*        regex: "28bf9ced2f1413d"*/}}
-{{/*        replacement: 'Water Store Top'*/}}
-{{/*      - sourceLabels:*/}}
-{{/*        - 'sensorId'*/}}
-{{/*        targetLabel: 'sensorName'*/}}
-{{/*        regex: "285f311930141a1"*/}}
-{{/*        replacement: 'Water Store Bottom'*/}}
-{{/*      # Room Ambient*/}}
-{{/*      - sourceLabels:*/}}
-{{/*        - 'sensorId'*/}}
-{{/*        targetLabel: 'sensorName'*/}}
-{{/*        regex: "28aa90c31a132ae"*/}}
-{{/*        replacement: 'Room Ambient'*/}}
+        # UFH Heat Store
+      - sourceLabels:
+        - 'sensorId'
+        targetLabel: 'sensorName'
+        regex: "28aabdb81a13286"
+        replacement: 'UFH Store'
+      # Water Heat Store
+      - sourceLabels:
+        - 'sensorId'
+        targetLabel: 'sensorName'
+        regex: "28bf9ced2f1413d"
+        replacement: 'Water Store Top'
+      - sourceLabels:
+        - 'sensorId'
+        targetLabel: 'sensorName'
+        regex: "285f311930141a1"
+        replacement: 'Water Store Bottom'
+      # Room Ambient
+      - sourceLabels:
+        - 'sensorId'
+        targetLabel: 'sensorName'
+        regex: "28aa90c31a132ae"
+        replacement: 'Room Ambient'
