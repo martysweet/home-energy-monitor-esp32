@@ -83,10 +83,11 @@ spec:
         targetLabel: 'sensorName'
         regex: "28b68aed5e141f"
         replacement: 'UFH Flow'
-{{/*      - sourceLabels:                   # Temp: Bug fix for Ardiuno code*/}}
-{{/*        - 'sensorId'*/}}
-{{/*        regex: "28b68aed5e141f"*/}}
-{{/*        replacement: '28b68aed5e141f0'*/}}
+      - sourceLabels:                   # Temp: Bug fix for Ardiuno code
+        - 'sensorId'
+        regex: "28b68aed5e141f"
+        targetLabel: "sensorId"
+        replacement: "28b68aed5e141f0"
         # UFH Heat Store
       - sourceLabels:
         - 'sensorId'
