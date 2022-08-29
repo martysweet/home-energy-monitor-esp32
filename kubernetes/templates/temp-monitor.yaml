@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: temp-monitor
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: temp-monitor
+subsets:
+  - addresses:
+      - ip: {{ .Values.temp1Endpoint }}
+    ports:
+      - name: web
+        port: 8080
+        protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: temp-monitor
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: temp-monitor
+    release: prometheus
+spec:
+  externalName: {{ .Values.temp1Endpoint }}
+  ports:
+    - name: web
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  type: ExternalName
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: temp-monitor
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: temp-monitor
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: temp-monitor
+      release: prometheus
+  endpoints:
+    - port: web
+      interval: 30s
+      honorLabels: true
