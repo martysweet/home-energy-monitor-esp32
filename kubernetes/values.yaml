@@ -7,4 +7,4 @@ neohubHost: 192.168.1.123
 temp1Endpoint: 192.168.1.123
 ingressHostList:
   - a.c.c.d
-ingressClassName: public-nginx-ingress
+ingressClassName: private-nginx-ingress
