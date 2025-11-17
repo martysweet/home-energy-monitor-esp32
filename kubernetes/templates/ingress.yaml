@@ -14,7 +14,8 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: hem-service
+            name: prometheus-grafana
+            namespace: monitoring
             port:
               number: 80
   {{- end }}
