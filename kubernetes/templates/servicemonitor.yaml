@@ -23,13 +23,11 @@ metadata:
     app: hem-controller
     release: prometheus
 spec:
-  externalName: {{ .Values.hemEndpoint }}
   ports:
     - name: web
       port: 7070
       protocol: TCP
       targetPort: 7070
-  type: ExternalName
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
